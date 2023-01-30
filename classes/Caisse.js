@@ -88,6 +88,7 @@ export class Caisse {
     this.amountToRefund = Math.abs(this.amountNeedToPay);
     let keyIndice = 0;
     let key = "50E";
+    let devCpt = 0;
     while (this.amountToRefund > 0) {
       if (!this.addCashToCashBack(key)) {
         const keys = ["50E","20E", "10E", "5E", "2E", "1E", "50C", "20C", "10C", "5C", "2C", "1C"]
@@ -96,6 +97,9 @@ export class Caisse {
           alert("Fond de caisse insufissant !");
           break;
         }
+      }
+      if(devCpt++ > 100){
+        break;
       }
     }
     this.displayCashBack();
@@ -115,6 +119,7 @@ export class Caisse {
   displayCashBack() {
     let keyIndice = 0;
     let key = "50E";
+    let devCpt = 0;
     const handleInterval = setInterval(() => {
       while (this.cashBack.stock[key] == 0) {
         const keys = ["50E","20E", "10E", "5E", "2E", "1E", "50C", "20C", "10C", "5C", "2C", "1C"]
@@ -130,6 +135,9 @@ export class Caisse {
       );
       let elementToAdd = template.cloneNode(true);
       document.getElementById("cashBackContainer").append(elementToAdd);
+      if(devCpt++ > 100){
+        clearInterval(handleInterval);
+      }
     }, 750);
   }
 
