@@ -27,10 +27,6 @@ export class Caisse {
     this.amountNeedToPay = 0;
 
     this.amountToRefund = 0;
-
-    //UI
-    // this.amountToPayLabel = document.getElementById("amountToPayLabel");
-    // this.articleCounterLabel = document.getElementById("articleCounterLabel");
   }
 
   scanArticle = (event) => {
@@ -77,7 +73,7 @@ export class Caisse {
     //UI
     amountNeedToPayLabel.innerText = this.amountNeedToPay.toFixed(2);
     amountAlreadyPaidLabel.innerText = this.amountAlreadyPaid.toFixed(2);
-    //
+    
     if (this.amountNeedToPay <= 0) {
       document.querySelectorAll(".btn-cash").forEach((btn) => {
         btn.disabled = true;
@@ -110,10 +106,6 @@ export class Caisse {
     while (this.amountToRefund >= value && this.cashFund.removeCash(name)) {
       this.amountToRefund = +(this.amountToRefund - value).toFixed(2); //To avoid imprecise calculations
       this.cashBack.addCash(name);
-      //render
-      // let template = document.querySelector(`#cashBackTemplates div[data-name="${name}"]`)
-      // let elementToAdd = template.cloneNode(true);
-      // document.getElementById("cashBackContainer").append(elementToAdd);
       flag = true;
     }
     return flag;
@@ -126,7 +118,6 @@ export class Caisse {
       while (this.cashBack.stock[key] == 0) {
         key = Object.keys(this.cashFund.stock)[keyIndice++];
         if (!key) {
-          // alert("Fond de caisse insufissant !");
           clearInterval(handleInterval);
           break;
         }
