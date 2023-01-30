@@ -54,7 +54,7 @@ export class Caisse {
     articleCounterLabel.innerText = ++this.articleCounter;
   };
 
-  unlockPayment = () => {
+  unlockPayment = (event) => {
     console.log("unlockPayment");
     scanArticleButton.disabled = proceedPaymentButton.disabled = true;
     document.querySelectorAll(".btn-cash").forEach((btn) => {
@@ -87,10 +87,11 @@ export class Caisse {
     console.log("proceedCashBack");
     this.amountToRefund = Math.abs(this.amountNeedToPay);
     let keyIndice = 0;
-    let key = Object.keys(this.cashFund.stock)[keyIndice++];
+    let key = "50E";
     while (this.amountToRefund > 0) {
       if (!this.addCashToCashBack(key)) {
-        key = Object.keys(this.cashFund.stock)[keyIndice++];
+        const keys = ["50E","20E", "10E", "5E", "2E", "1E", "50C", "20C", "10C", "5C", "2C", "1C"]
+        key = keys[keyIndice++];
         if (!key) {
           alert("Fond de caisse insufissant !");
           break;
@@ -113,10 +114,11 @@ export class Caisse {
 
   displayCashBack() {
     let keyIndice = 0;
-    let key = Object.keys(this.cashFund.stock)[keyIndice++];
+    let key = "50E";
     const handleInterval = setInterval(() => {
       while (this.cashBack.stock[key] == 0) {
-        key = Object.keys(this.cashFund.stock)[keyIndice++];
+        const keys = ["50E","20E", "10E", "5E", "2E", "1E", "50C", "20C", "10C", "5C", "2C", "1C"]
+        key = keys[keyIndice++];
         if (!key) {
           clearInterval(handleInterval);
           break;
@@ -133,6 +135,7 @@ export class Caisse {
 
   //TOOLS
   getRandomPrice = (min, max) => {
+    return this.getRandomNumber(min, max, 2);
     return +(Math.random() * (max - min) + min).toFixed(2);
   };
   getRandomNumber = (min, max, precision = 0) => {
